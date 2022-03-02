@@ -75,7 +75,20 @@ function generateHikesData(max) {
 }
 
 function displayHikes() {
-    //TODO Display hiking data
+    let template = document.getElementById("hikeCardTemplate");
+    
+    db.collection("hikes").get()
+        .then(hikes => {
+            hikes.forEach(currentHike => {
+                var currentHike = currentHike.data();
+                let newCard = template.content.cloneNode(true);
+                
+                newCard.querySelector(".card-title").innerText = currentHike.name;
+                newCard.querySelector(".card-text").innerText = currentHike.details;
+                
+                document.getElementById("hike-card-placeholder").appendChild(newCard);
+            });
+        });
 }
 
 insert_users_name();

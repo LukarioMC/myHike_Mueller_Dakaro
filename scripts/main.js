@@ -74,19 +74,28 @@ function generateHikesData(max) {
     }
 }
 
-function displayHikes() {
+function displayCollection(collection) {
     let template = document.getElementById("hikeCardTemplate");
     
-    db.collection("hikes").get()
+    db.collection(collection).get()
         .then(hikes => {
+            var i = 1; // Used for generating ID's
             hikes.forEach(currentHike => {
                 var currentHike = currentHike.data();
                 let newCard = template.content.cloneNode(true);
                 
+                // Populate title and text with database info
                 newCard.querySelector(".card-title").innerText = currentHike.name;
                 newCard.querySelector(".card-text").innerText = currentHike.details;
+                newCard.querySelector('.card-image').src = "./images/" + collection + ".jpg";
+
+                // Give the generated cards unique ID's
+                newCard.querySelector(".card-title").setAttribute("id", "ctitle-" + i);
+                newCard.querySelector(".card-text").setAttribute("id", "cbody-" + i);
+                newCard.querySelector(".card-image").setAttribute("id", "cimage-" + i);
                 
                 document.getElementById("hike-card-placeholder").appendChild(newCard);
+                i++;
             });
         });
 }
@@ -94,4 +103,4 @@ function displayHikes() {
 insert_users_name();
 read_display_quote();
 
-displayHikes();
+displayCollection("hikes");

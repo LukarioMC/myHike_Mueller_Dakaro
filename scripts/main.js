@@ -32,5 +32,53 @@ function insert_users_name() {
     );
 }
 
+var hikesRef = db.collection("hikes");
+
+function populateHikes() {
+    hikesRef.add({
+        id : "MI01",
+        name : "Rolley Lake Nature Trail",
+        city : "Mission",
+        province : "BC",
+        difficulty : "easy",
+        length : "4.67km",
+        details : "A beautiful hike by the lakeside."
+    });
+    hikesRef.add({
+        id : "MI02",
+        name : "Heritage Park Trail",
+        city : "Mission",
+        province : "BC",
+        difficulty : "easy",
+        length : "2.4km",
+        details : "Walk around the historical heritage park."
+    });
+    hikesRef.add({
+        id :"NV01",
+        name : "Mount Seymour Trail",
+        city : "North Vancouver",
+        province : "BC",
+        difficulty : "hard",
+        length : "8.2 km",
+        details : "Visit three peaks and experience stunning views."
+    });
+}
+
+function generateHikesData(max) {
+    for (i = 1; i <= max; i++) {
+        hikesRef.add({
+            id : "SomeID" + i,
+            name : "Hike " + i,
+            details : "Experience stunning views and nature."
+        });
+    }
+}
+
+function displayHikes() {
+    //TODO Display hiking data
+}
+
 insert_users_name();
 read_display_quote();
+
+displayHikes();
